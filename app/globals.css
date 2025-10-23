@@ -3,28 +3,52 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --ig-primary: #0095F6;
+    --ig-error: #ED4956;
+    --ig-success: #4CAF50;
+  }
+
   * {
     @apply border-ig-border;
   }
-  
+
   body {
     @apply bg-ig-bg-primary text-ig-text-primary font-sans antialiased;
   }
-  
+
+  /* Focus styles for accessibility */
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-ig-primary;
+    outline-style: solid;
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
   /* Scrollbar styles */
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
   }
-  
+
   ::-webkit-scrollbar-track {
     @apply bg-transparent;
   }
-  
+
   ::-webkit-scrollbar-thumb {
     @apply bg-ig-border rounded-full;
   }
-  
+
   ::-webkit-scrollbar-thumb:hover {
     @apply bg-ig-secondary;
   }
