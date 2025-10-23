@@ -1,17 +1,18 @@
 'use client'
 
-import { Grid3x3, Bookmark, UserSquare } from 'lucide-react'
+import { Grid3x3, Bookmark, UserSquare, Film } from 'lucide-react'
 import { useState } from 'react'
 
 interface ProfileTabsProps {
-  activeTab?: 'posts' | 'saved' | 'tagged'
-  onTabChange?: (tab: 'posts' | 'saved' | 'tagged') => void
+  activeTab?: 'posts' | 'reels' | 'saved' | 'tagged'
+  onTabChange?: (tab: 'posts' | 'reels' | 'saved' | 'tagged') => void
+  showSaved?: boolean
 }
 
-export function ProfileTabs({ activeTab = 'posts', onTabChange }: ProfileTabsProps) {
+export function ProfileTabs({ activeTab = 'posts', onTabChange, showSaved = true }: ProfileTabsProps) {
   const [currentTab, setCurrentTab] = useState(activeTab)
 
-  const handleTabClick = (tab: 'posts' | 'saved' | 'tagged') => {
+  const handleTabClick = (tab: 'posts' | 'reels' | 'saved' | 'tagged') => {
     setCurrentTab(tab)
     onTabChange?.(tab)
   }
@@ -33,18 +34,34 @@ export function ProfileTabs({ activeTab = 'posts', onTabChange }: ProfileTabsPro
       </button>
 
       <button
-        onClick={() => handleTabClick('saved')}
+        onClick={() => handleTabClick('reels')}
         className={`flex flex-1 items-center justify-center gap-1 border-t py-3 text-xs font-semibold uppercase tracking-wide ${
-          currentTab === 'saved'
+          currentTab === 'reels'
             ? 'border-ig-text-primary text-ig-text-primary'
             : 'border-transparent text-ig-text-secondary'
         }`}
-        aria-label="Saved"
-        aria-current={currentTab === 'saved' ? 'page' : undefined}
+        aria-label="Reels"
+        aria-current={currentTab === 'reels' ? 'page' : undefined}
       >
-        <Bookmark className="h-3 w-3" />
-        <span>Saved</span>
+        <Film className="h-3 w-3" />
+        <span>Reels</span>
       </button>
+
+      {showSaved && (
+        <button
+          onClick={() => handleTabClick('saved')}
+          className={`flex flex-1 items-center justify-center gap-1 border-t py-3 text-xs font-semibold uppercase tracking-wide ${
+            currentTab === 'saved'
+              ? 'border-ig-text-primary text-ig-text-primary'
+              : 'border-transparent text-ig-text-secondary'
+          }`}
+          aria-label="Saved"
+          aria-current={currentTab === 'saved' ? 'page' : undefined}
+        >
+          <Bookmark className="h-3 w-3" />
+          <span>Saved</span>
+        </button>
+      )}
 
       <button
         onClick={() => handleTabClick('tagged')}

@@ -39,7 +39,7 @@ const mockPosts = Array.from({ length: 12 }, (_, i) => ({
   createdAt: new Date(Date.now() - i * 86400000).toISOString(),
 }))
 
-type ProfileTab = 'posts' | 'reels' | 'saved'
+type ProfileTab = 'posts' | 'reels' | 'saved' | 'tagged'
 
 export default function ProfilePage() {
   const params = useParams()
@@ -78,6 +78,11 @@ export default function ProfilePage() {
             {activeTab === 'saved' && (
               <div className="text-center py-16 text-ig-text-secondary">
                 Only you can see what you&apos;ve saved
+              </div>
+            )}
+            {activeTab === 'tagged' && (
+              <div className="text-center py-16 text-ig-text-secondary">
+                No tagged posts yet
               </div>
             )}
           </div>

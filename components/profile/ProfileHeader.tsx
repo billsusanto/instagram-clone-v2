@@ -8,16 +8,18 @@ import { CheckCircle2, Settings } from 'lucide-react'
 interface ProfileHeaderProps {
   user: User
   isOwnProfile?: boolean
+  isFollowing?: boolean
+  onFollowToggle?: () => void
 }
 
-export function ProfileHeader({ user, isOwnProfile = false }: ProfileHeaderProps) {
+export function ProfileHeader({ user, isOwnProfile = false, isFollowing = false, onFollowToggle }: ProfileHeaderProps) {
   return (
     <div className="border-b border-ig-border bg-white px-5 py-8">
       <div className="mx-auto flex max-w-4xl gap-10">
         {/* Avatar */}
         <div className="flex-shrink-0">
           <Avatar className="h-36 w-36">
-            <AvatarImage src={user.avatar} alt={`${user.username}'s profile`} />
+            <AvatarImage src={user.avatarUrl} alt={`${user.username}'s profile`} />
             <AvatarFallback>{user.fullName.slice(0, 2).toUpperCase()}</AvatarFallback>
           </Avatar>
         </div>
@@ -27,7 +29,7 @@ export function ProfileHeader({ user, isOwnProfile = false }: ProfileHeaderProps
           {/* Top Row: Username and Actions */}
           <div className="mb-5 flex items-center gap-5">
             <h1 className="text-xl font-light text-ig-text-primary">{user.username}</h1>
-            {user.isVerified && (
+            {user.verified && (
               <CheckCircle2 className="h-5 w-5 text-ig-primary" aria-label="Verified" />
             )}
             <div className="flex gap-2">
@@ -45,8 +47,8 @@ export function ProfileHeader({ user, isOwnProfile = false }: ProfileHeaderProps
                 </>
               ) : (
                 <>
-                  <Button variant="default" size="sm">
-                    Follow
+                  <Button variant={isFollowing ? "secondary" : "primary"} size="sm" onClick={onFollowToggle}>
+                    {isFollowing ? 'Following' : 'Follow'}
                   </Button>
                   <Button variant="secondary" size="sm">
                     Message
