@@ -1,12 +1,12 @@
-# Netlify Configuration for Next.js 14 Static Export
+# Netlify Configuration for Next.js 14
 # This configuration enables successful deployment of the Instagram clone
 
 [build]
-  # Build command - runs Next.js production build with static export
+  # Build command - runs Next.js production build
   command = "npm run build"
   
-  # Publish directory - Next.js static export outputs to 'out' folder
-  publish = "out"
+  # Publish directory - Next.js outputs to '.next' folder for SSR
+  publish = ".next"
 
 # Environment configuration
 [build.environment]
@@ -20,3 +20,12 @@
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Next.js runtime configuration
+[functions]
+  directory = ".netlify/functions"
+  node_bundler = "esbuild"
+
+# Enable Next.js runtime on Netlify
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
