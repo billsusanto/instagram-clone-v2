@@ -1,20 +1,12 @@
-# Netlify Configuration for Next.js 14 App Router
-# This file tells Netlify how to build and deploy the Instagram clone
+# Netlify Configuration for Next.js 14 Static Export
+# This configuration enables successful deployment of the Instagram clone
 
 [build]
-  # Build command - runs Next.js production build
+  # Build command - runs Next.js production build with static export
   command = "npm run build"
   
-  # Publish directory - Next.js outputs to .next folder
-  publish = ".next"
-
-# Redirect rules for client-side routing
-# Without this, direct URL access (e.g., /profile) will 404
-# This catches all routes and serves the app, letting Next.js handle routing
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+  # Publish directory - Next.js static export outputs to 'out' folder
+  publish = "out"
 
 # Environment configuration
 [build.environment]
